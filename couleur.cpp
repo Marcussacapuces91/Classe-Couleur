@@ -19,10 +19,21 @@ Couleur::Couleur(const unsigned long aRVB) :
   fBlue(aRVB & 0xFF) {
 }
 
-Couleur Couleur::changerLuminance(const byte aLum) const {
-  const unsigned l = (fRed * 3 + fGreen * 6  + fBlue) / 10;
-  Couleur r(unsigned(fRed) * aLum / l, unsigned(fGreen) * aLum / l, unsigned(fBlue) * aLum / l);
-  return r;    
+byte Couleur::getLuminance() const {
+  return (unsigned(fRed) * 3 + unsigned(fGreen) * 6  + unsigned(fBlue)) / 10;  
+}
+
+Couleur& Couleur::setLuminance(const byte aLum) {
+  const unsigned l = getLuminance();
+  if (l == 0) {
+    fRed = 1;
+    fGreen = 1;
+    fBlue = 1;
+  }
+  fRed = unsigned(fRed) * aLum / l;
+  fGreen = unsigned(fGreen) * aLum / l;
+  fBlue = unsigned(fBlue) * aLum / l;
+  return *this;    
 }
 
 const Couleur Couleur::BLACK(0x000000);

@@ -6,9 +6,9 @@
 class Couleur {
 
 private:
-  const byte fRed;
-  const byte fGreen;
-  const byte fBlue;
+  byte fRed;
+  byte fGreen;
+  byte fBlue;
   
 public:
   static const Couleur BLACK;
@@ -26,7 +26,8 @@ public:
   Couleur(const byte aRed, const byte aGreen, const byte aBlue);
   Couleur(const unsigned long aRVB);
   
-  Couleur changerLuminance(const byte aLum) const;
+  byte getLuminance() const;
+  Couleur& setLuminance(const byte aLum);
   
   template <int R, int G, int B>
   static void afficher(const Couleur& aCouleur);
@@ -37,9 +38,9 @@ public:
 
 template <int R, int G, int B>
 void Couleur::afficher(const Couleur& aCouleur) {
-  analogWrite(3, aCouleur.fRed);
-  analogWrite(5, aCouleur.fGreen);
-  analogWrite(6, aCouleur.fBlue);
+  analogWrite(R, aCouleur.fRed);
+  analogWrite(G, aCouleur.fGreen);
+  analogWrite(B, aCouleur.fBlue);
 }
 
 template <int R, int G, int B>
